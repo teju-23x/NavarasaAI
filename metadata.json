@@ -1,0 +1,5 @@
+{
+  "name": "Remix: NavaRasa AI",
+  "description": "Cross-cultural movie and soundtrack recommendations powered by your Letterboxd history.",
+  "requestFramePermissions": []
+}

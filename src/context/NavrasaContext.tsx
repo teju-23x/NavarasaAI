@@ -10,6 +10,7 @@ import {
   UserProfile
 } from '../types';
 import { getRecommendations, getTVRecommendations, getAnimeRecommendations } from '../services/geminiService';
+import { isSupabaseConfigured, supabase, signOutFromSupabase } from '../services/supabaseClient';
 
 interface NavrasaContextType {
   // Movie Discovery
@@ -220,8 +221,33 @@ export const NavrasaProvider: React.FC<{ children: React.ReactNode }> = ({ child
     });
   }, []);
 
-  const logout = useCallback(() => {
+  // Listen to Supabase auth state changes for seamless session persistence
+  useEffect(() => {
+    if (!isSupabaseConfigured() || !supabase) return;
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        localStorage.removeItem('navrasa_session');
+      } else if (session?.user) {
+        localStorage.setItem('navrasa_session', 'active');
+        if (session.user.email) {
+          localStorage.setItem('user_email', session.user.email);
+        }
+      }
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const logout = useCallback(async () => {
     localStorage.removeItem('navrasa_session');
+    try {
+      await signOutFromSupabase();
+    } catch (e) {
+      console.error('Error signing out from Supabase:', e);
+    }
     window.location.href = '/login';
   }, []);
 

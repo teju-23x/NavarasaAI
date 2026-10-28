@@ -105,14 +105,10 @@ const AppRoutes = () => {
       <Route path="/login" element={<Login key={location.pathname} />} />
       <Route path="/share" element={<SharePage key={location.pathname} />} />
 
-      {/* Protected Layout Route */}
+      {/* Main Layout Route */}
       <Route
         path="/"
-        element={
-          <ProtectedRoute>
-            <MainLayout key={location.pathname} />
-          </ProtectedRoute>
-        }
+        element={<MainLayout key={location.pathname} />}
       >
         <Route index element={<Home key={location.pathname} />} />
         <Route path="series" element={<Series key={location.pathname} />} />
@@ -121,15 +117,15 @@ const AppRoutes = () => {
         <Route path="anime/:id" element={<SeriesDetail key={location.pathname} />} />
         <Route path="movie/:id" element={<MovieDetail key={location.pathname} />} />
         <Route path="person/:name" element={<PersonDetail key={location.pathname} />} />
-        <Route path="wishlist" element={<Wishlist key={location.pathname} />} />
-        <Route path="diary" element={<Diary key={location.pathname} />} />
-        <Route path="library" element={<Library key={location.pathname} />} />
-        <Route path="profile" element={<Profile key={location.pathname} />} />
-        <Route path="admin" element={<Admin key={location.pathname} />} />
+        <Route path="wishlist" element={<ProtectedRoute><Wishlist key={location.pathname} /></ProtectedRoute>} />
+        <Route path="diary" element={<ProtectedRoute><Diary key={location.pathname} /></ProtectedRoute>} />
+        <Route path="library" element={<ProtectedRoute><Library key={location.pathname} /></ProtectedRoute>} />
+        <Route path="profile" element={<ProtectedRoute><Profile key={location.pathname} /></ProtectedRoute>} />
+        <Route path="admin" element={<ProtectedRoute><Admin key={location.pathname} /></ProtectedRoute>} />
       </Route>
 
       {/* Fallback */}
-      <Route path="*" element={<Navigate to={safeGetSession() ? '/' : '/login'} replace />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };

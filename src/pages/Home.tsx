@@ -5,6 +5,7 @@ import MovieCard from '../components/MovieCard';
 import { useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { clsx } from 'clsx';
+import PreferredNameModal from '../components/PreferredNameModal';
 
 const languageTabs = [
   { label: 'Malayalam', code: 'ml' },
@@ -22,6 +23,11 @@ const Home: React.FC = () => {
   const [activeLang, setActiveLang] = useState('all');
   const searchInputRef = useRef<HTMLInputElement>(null);
   const quickChips = ['Gritty crime thrillers', 'Classic romantic comedy', 'Sci-fi visuals', '90s action', 'Korean drama'];
+
+  const isAuth = !!localStorage.getItem('navrasa_session');
+  const [isNameSaved, setIsNameSaved] = useState<boolean>(() => {
+    return localStorage.getItem('navrasa_name_saved') === 'true';
+  });
 
   const autoSearchTitle =
     typeof (location.state as any)?.autoSearchTitle === 'string' && (location.state as any)?.autoSearchTitle.trim()
@@ -50,9 +56,21 @@ const Home: React.FC = () => {
     generateRecs();
   }, [autoSearchTitle, searchQuery, generateRecs]);
 
+  const handleOnboardingComplete = () => {
+    setIsNameSaved(true);
+  };
+
   return (
     <div className="min-h-screen bg-cream">
-      {/* Hero Section */}
+      {/* Onboarding Name Prompt Modal if logged in but name not yet saved */}
+      {isAuth && !isNameSaved && (
+        <PreferredNameModal
+          isModal={true}
+          onComplete={handleOnboardingComplete}
+        />
+      )}
+
+      {/* Hero Section - Restored original exactly as it was */}
       <section className="relative px-4 md:px-10 pt-16 md:pt-24 pb-12 text-center overflow-hidden border-b-[8px] border-double border-navy">
         <div className="absolute inset-0 starburst opacity-20 pointer-events-none" />
         <div className="max-w-4xl mx-auto relative z-10">
@@ -85,7 +103,7 @@ const Home: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && generateRecs()}
-            placeholder="Type your cinematic desire..."
+            placeholder="Tell me how you're feeling, and I'll find what to watch."
             className="w-full h-16 md:h-20 bg-white border-[4px] border-navy pl-16 pr-4 md:pr-40 text-lg md:text-xl font-bold text-navy outline-none focus:bg-white shadow-[8px_8px_0px_#E8943A] transition-all placeholder:text-navy/30"
           />
           <button 

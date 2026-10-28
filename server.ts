@@ -14,7 +14,7 @@ async function startServer() {
 
   // Proxy route for n8n to avoid CORS issues
   app.post("/api/recommendations", async (req, res) => {
-    const webhookUrl = "https://navarasaai.app.n8n.cloud/webhook/recommendations";
+    const webhookUrl = "https://navarasa-ai.app.n8n.cloud/webhook/recommendations";
     
     try {
       console.log("Proxying request to n8n...");
@@ -40,7 +40,7 @@ async function startServer() {
 
   // Proxy route for TV series recommendations
   app.post("/api/tv-recommendations", async (req, res) => {
-    const webhookUrl = "https://navarasaai.app.n8n.cloud/webhook/tv-recommendations";
+    const webhookUrl = "https://navarasa-ai.app.n8n.cloud/webhook/tv-recommendations";
     try {
       console.log("Proxying TV series request to n8n...");
       const response = await fetch(webhookUrl, {

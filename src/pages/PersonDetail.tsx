@@ -35,9 +35,12 @@ const PersonDetail: React.FC = () => {
   const bio = data?.biography || data?.overview || `No biography available for ${decodeURIComponent(name)}.`;
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-cream relative overflow-hidden">
+      {/* Background Dot Filter (Halftone) */}
+      <div className="absolute inset-0 halftone opacity-10 pointer-events-none z-0" />
+
       {/* Hero Section */}
-      <section className="relative px-4 md:px-10 pt-16 md:pt-24 pb-12 text-center overflow-hidden border-b-[8px] border-double border-navy">
+      <section className="relative px-4 md:px-10 pt-16 md:pt-24 pb-12 text-center overflow-hidden border-b-[8px] border-double border-navy z-10">
         <div className="absolute inset-0 starburst opacity-20 pointer-events-none" />
         <div className="max-w-4xl mx-auto relative z-10">
           <motion.div 
@@ -57,7 +60,7 @@ const PersonDetail: React.FC = () => {
         </div>
       </section>
 
-      <div className="px-4 md:px-10 py-16">
+      <div className="px-4 md:px-10 py-16 relative z-10">
         <button 
           onClick={() => navigate(-1)}
           className="mb-10 h-12 px-6 bg-white border-2 border-navy text-navy font-black uppercase tracking-widest text-[10px] hover:bg-accent-red hover:text-white transition-all shadow-[4px_4px_0px_#1A1A2E] flex items-center gap-2"
@@ -73,9 +76,8 @@ const PersonDetail: React.FC = () => {
         ) : (
           <div className="max-w-7xl mx-auto space-y-16">
             <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-12 items-start">
-               <div className="vintage-card aspect-[2/3] overflow-hidden">
+               <div className="vintage-card aspect-[2/3] overflow-hidden relative">
                   <img src={data?.photo || items[0]?.poster || ''} className="w-full h-full object-cover grayscale-[0.2]" alt={name} />
-                  <div className="absolute inset-0 halftone opacity-10 pointer-events-none" />
                </div>
                
                <div className="space-y-8">
@@ -110,9 +112,8 @@ const PersonDetail: React.FC = () => {
                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
                  {items.map((item: any, idx: number) => (
                    <div key={`${item.title}-${idx}`} className="group cursor-default">
-                      <div className="vintage-card aspect-[2/3] overflow-hidden mb-4 group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all">
+                      <div className="vintage-card aspect-[2/3] overflow-hidden mb-4 group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none transition-all relative">
                         <img src={item.poster || ''} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all" alt={item.title} />
-                        <div className="absolute inset-0 halftone opacity-10 pointer-events-none" />
                       </div>
                       <div className="px-1">
                         <div className="text-[12px] font-black text-navy uppercase tracking-widest line-clamp-2 leading-tight mb-1">{item.title}</div>

@@ -58,7 +58,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ item, idx }) => {
                </div>
              )}
              <p className="text-[11px] font-black italic text-cream leading-relaxed line-clamp-3">
-                "{item.match_reason}"
+                "{item.title}"
              </p>
           </div>
 
@@ -83,7 +83,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ item, idx }) => {
        </div>
 
        <div className="mt-4 text-center">
-          <h4 className="text-sm font-black text-navy uppercase tracking-widest line-clamp-1 group-hover:text-accent-red transition-colors">{item.title}</h4>
+          <h4 className="text-sm font-black text-navy uppercase tracking-widest group-hover:text-accent-red transition-colors" title={item.title}>{item.title}</h4>
           <div className="flex items-center justify-center gap-2 mt-1">
              <span className="text-[10px] text-navy/40 font-black uppercase tracking-tighter">{item.year}</span>
              <span className="text-accent-gold">•</span>

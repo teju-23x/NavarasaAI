@@ -7,8 +7,8 @@ import {
   SeriesRecommendation
 } from "../types";
 
-const MOVIES_WEBHOOK_URL = "https://navarasaai.app.n8n.cloud/webhook/recommendations";
-const TV_WEBHOOK_URL = "https://navarasaai.app.n8n.cloud/webhook/tv-recommendations";
+const MOVIES_WEBHOOK_URL = "https://navarasa-ai.app.n8n.cloud/webhook/recommendations";
+const TV_WEBHOOK_URL = "https://navarasa-ai.app.n8n.cloud/webhook/tv-recommendations";
 
 const trackSearchStats = (language: string, genre: string[] = []) => {
   try {

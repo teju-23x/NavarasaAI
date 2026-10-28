@@ -34,7 +34,7 @@ const ICONS = [
 
 const Profile: React.FC = () => {
   const navigate = useNavigate();
-  const { userProfile, updateProfile } = useNavrasa();
+  const { userProfile, updateProfile, logout } = useNavrasa();
   const initialPrefs = useMemo(() => {
     try {
       const raw = localStorage.getItem('navrasa_profile');
@@ -58,8 +58,7 @@ const Profile: React.FC = () => {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem('navrasa_session');
-    navigate('/login');
+    logout();
   };
 
   return (

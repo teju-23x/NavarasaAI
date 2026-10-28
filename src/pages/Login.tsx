@@ -142,7 +142,7 @@ const Login: React.FC = () => {
     // If Supabase is not configured yet, notify user with clear instructions
     if (!isSupabaseConfigured()) {
       setOauthError(
-        'Supabase credentials pending. Please enter your VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your local .env file.'
+        'Supabase credentials pending. Please add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your Vercel Project Settings (or local .env file), then redeploy.'
       );
       return;
     }
@@ -224,7 +224,7 @@ const Login: React.FC = () => {
                           <p className="font-bold text-accent-red">{oauthError}</p>
                           {!isSupabaseConfigured() && (
                             <p className="text-[11px] text-navy/70 font-sans leading-relaxed">
-                              Open your project’s <code>.env</code> file and configure <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code>.
+                              In Vercel: go to <strong>Settings &gt; Environment Variables</strong>, add <code>VITE_SUPABASE_URL</code> and <code>VITE_SUPABASE_ANON_KEY</code>, then <strong>Redeploy</strong>.
                             </p>
                           )}
                         </div>
